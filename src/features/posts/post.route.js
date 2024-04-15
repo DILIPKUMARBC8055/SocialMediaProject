@@ -8,13 +8,14 @@
 
 import { Router } from "express";
 import PostController from "./post.controller.js";
-const post= new PostController();
-const postRouter= Router();
-postRouter.get("/all",post.getAllPosts);
-postRouter.get("/:id",post.getPostById);
-postRouter.get('/',post.getUserPost);
-postRouter.post("/",post.createPost);
-postRouter.delete("/:id",post.deletePost);
-postRouter.put("/:id",post.updatePost);
+import upload from "../../middlewares/fileUpload.middleware.js";
+const post = new PostController();
+const postRouter = Router();
+postRouter.get("/all", post.getAllPosts);
+postRouter.get("/:id", post.getPostById);
+postRouter.get("/", post.getUserPost);
+postRouter.post("/", upload.single("imageUrl"), post.createPost);
+postRouter.delete("/:id", post.deletePost);
+postRouter.put("/:id", post.updatePost);
 
 export default postRouter;

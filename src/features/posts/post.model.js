@@ -59,4 +59,4 @@ export default class PostModel {
   }
 }
 
-const posts = [];
+const posts = [new PostModel(1,"this is aws","http link")];

@@ -5,8 +5,8 @@ import LikeModel from "./like.model.js";
 //toggle likes on a specific post.
 export default class LikeController {
   likePost(req, res) {
-    const { postId, userId } = req.body;
-    const response = LikeModel.addLike(userId, postId);
+    const { postId } = req.body;
+    const response = LikeModel.addLike(req.userId, postId);
     if (response.success) {
       res.status(200).send(response);
     } else {
@@ -14,8 +14,8 @@ export default class LikeController {
     }
   }
   toggle(req, res) {
-    const { postId, userId } = req.body;
-    const response = LikeModel.removeLike(userId, postId);
+    const { postId} = req.body;
+    const response = LikeModel.removeLike(req.userId, postId);
     if (response.success) {
       res.status(200).send(response);
     } else {

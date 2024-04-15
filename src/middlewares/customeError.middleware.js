@@ -4,7 +4,7 @@ const customError = (err, req, res, next) => {
     return res.send(err.code).send(err.message);
   }
   res
-    .send(500)
+    .status(500)
     .send("OOPs! we will get back to you soon as the server is crash");
 };
 export default customError;

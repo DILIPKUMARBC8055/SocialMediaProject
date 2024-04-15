@@ -19,8 +19,12 @@
   },
   "homepage": "https://github.com/DILIPKUMARBC8055/SocialMediaProject#readme",
   "dependencies": {
+    "body-parser": "^1.20.2",
     "express": "^4.19.2",
-    "multer": "^1.4.5-lts.1"
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^1.4.5-lts.1",
+    "swagger-ui-express": "^5.0.0",
+    "winston": "^3.13.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.0"

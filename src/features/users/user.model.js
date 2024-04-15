@@ -13,27 +13,23 @@ export default class UserModel {
     this.email = email;
     this.password = password;
   }
-//   3. Create a User model with functions for getting all the users, adding a user, and confirming user login.
-static getAllUsers()
-{
+  //   3. Create a User model with functions for getting all the users, adding a user, and confirming user login.
+  static getAllUsers() {
     return users;
-}
-static addUser(name,email,password)
-{
-    const newUser= new UserModel(name,email,password);
+  }
+  static addUser(name, email, password) {
+    const newUser = new UserModel(name, email, password);
     users.push(newUser);
-    return newUser;
-}
-static confirmLogin(email,password)
-{
-    const user = users.find((u)=>u.email==email && u.password==password);
-    if(user)
-    {
-        return true;
+    return { success: true, message: "user cretead Successfully" };
+  }
+  static confirmLogin(email, password) {
+    const user = users.find((u) => u.email == email && u.password == password);
+
+    if (user) {
+      return user.id;
     }
     return false;
+  }
 }
 
-}
-
-const users=[];
+const users = [new UserModel("dilip", "test@gmail.com", "123")];

@@ -12,30 +12,28 @@ export default class CommentController {
     }
   }
   createCommets(req, res) {
-    const { userId, postId, content } = req.body;
-    const response = CommentModel.addComment(userId, postId, content);
+    const { postId, content } = req.body;
+    const response = CommentModel.addComment(req.userId, postId, content);
     if (response.success) {
       res.status(200).send(response);
     }
   }
   updateCommet(req, res) {
-    const { postId, userId, content } = req.body;
-    const response = CommentModel.updateComment(postId, userId, content);
+    const { postId, content } = req.body;
+    const response = CommentModel.updateComment(postId, req.userId, content);
     if (response.success) {
       res.status(200).send(response);
     } else {
       res.status(400).send(response);
     }
   }
-  deleteComment(req,res)
-  {
-    const{commentId}=req.body;
-    const response=CommentModel.deleteComment(commentId);
+  deleteComment(req, res) {
+    const { commentId } = req.body;
+    const response = CommentModel.deleteComment(commentId);
     if (response.success) {
-        res.status(200).send(response);
-      } else {
-        res.status(400).send(response);
-      }
-
+      res.status(200).send(response);
+    } else {
+      res.status(400).send(response);
+    }
   }
 }
