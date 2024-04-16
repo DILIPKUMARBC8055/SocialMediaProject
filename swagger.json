@@ -1,0 +1,521 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Social Media App API",
+    "version": "1.0.0",
+    "description": "API documentation for the Social Media App."
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080",
+      "description": "Local server"
+    }
+  ],
+  "tags": [
+    {
+      "name": "comment",
+      "description": "Operations related to comments"
+    },
+    {
+      "name": "like",
+      "description": "Operations related to likes"
+    },
+    {
+      "name": "post",
+      "description": "Operations related to posts"
+    },
+    {
+      "name": "user",
+      "description": "Operations related to users"
+    }
+  ],
+  "paths": {
+    "/api/signup": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Create a new user account",
+        "requestBody": {
+          "description": "User data",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "User's name"
+                  },
+                  "email": {
+                    "type": "string",
+                    "description": "User's email"
+                  },
+                  "password": {
+                    "type": "string",
+                    "description": "User's password"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User created successfully"
+          },
+          "400": {
+            "description": "Error creating user"
+          }
+        }
+      }
+    },
+    "/api/signin": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "User signin",
+        "requestBody": {
+          "description": "Signin data",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "description": "User's email"
+                  },
+                  "password": {
+                    "type": "string",
+                    "description": "User's password"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Signin successful"
+          },
+          "400": {
+            "description": "Error during signin"
+          }
+        }
+      }
+    },
+    "/api/comments/{id}": {
+      "get": {
+        "tags": [
+          "comment"
+        ],
+        "summary": "Retrieve all comments for a specific post",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID of the post"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Comments retrieved successfully"
+          }
+        },
+        "security": [
+          {
+            "jwtAuth": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "comment"
+        ],
+        "summary": "Delete a specific comment by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID of the comment"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Comment deleted successfully"
+          },
+          "400": {
+            "description": "Error deleting comment"
+          }
+        },
+        "security": [
+          {
+            "jwtAuth": []
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "comment"
+        ],
+        "summary": "Update a specific comment by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID of the comment"
+          }
+        ],
+        "requestBody": {
+          "description": "Updated comment content",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "content": {
+                    "type": "string",
+                    "description": "The new content of the comment"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Comment updated successfully"
+          },
+          "400": {
+            "description": "Error updating comment"
+          }
+        },
+        "security": [
+          {
+            "jwtAuth": []
+          }
+        ]
+      }
+    },
+    "/api/comments/{sid}": {
+      "post": {
+        "tags": [
+          "comment"
+        ],
+        "summary": "Add a new comment to a specific post",
+        "parameters": [
+          {
+            "name": "sid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID of the post"
+          }
+        ],
+        "requestBody": {
+          "description": "Comment to add",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "content": {
+                    "type": "string",
+                    "description": "Content of the new comment"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Comment added successfully"
+          }
+        },
+        "security": [
+          {
+            "jwtAuth": []
+          }
+        ]
+      }
+    },
+    "/api/likes/{postId}": {
+      "get": {
+        "tags": [
+          "like"
+        ],
+        "summary": "Retrieve all likes for a specific post",
+        "parameters": [
+          {
+            "name": "postId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID of the post"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Likes retrieved successfully"
+          }
+        },
+        "security": [
+          {
+            "jwtAuth": []
+          }
+        ]
+      }
+    },
+    "/api/likes/toggle/{postId}": {
+      "get": {
+        "tags": [
+          "like"
+        ],
+        "summary": "Toggle like status for a specific post",
+        "parameters": [
+          {
+            "name": "postId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID of the post"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Like status toggled successfully"
+          }
+        },
+        "security": [
+          {
+            "jwtAuth": []
+          }
+        ]
+      }
+    },
+    "/api/post/all": {
+      "get": {
+        "tags": [
+          "post"
+        ],
+       
+        "summary": "Retrieve all posts",
+        "responses": {
+          "200": {
+            "description": "Posts retrieved successfully"
+          }
+        },
+        "security": [
+          {
+            "jwtAuth": []
+          }
+        ]
+      }
+    },
+    "/api/post/{id}": {
+      "get": {
+        "tags": [
+          "post"
+        ],
+        "security": [
+          {
+            "jwtAuth": []
+          }
+        ],
+        "summary": "Retrieve a specific post by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID of the post"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Post retrieved successfully"
+          },
+          "404": {
+            "description": "Post not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "post"
+        ],
+        "security": [
+          {
+            "jwtAuth": []
+          }
+        ],
+        "summary": "Delete a specific post by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID of the post"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Post deleted successfully"
+          },
+          "401": {
+            "description": "Unauthorized to delete post"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "post"
+        ],
+        "security": [
+          {
+            "jwtAuth": []
+          }
+        ],
+        "summary": "Update a specific post by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID of the post"
+          }
+        ],
+        "requestBody": {
+          "description": "Updated post data",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "caption": {
+                    "type": "string",
+                    "description": "Updated caption of the post"
+                  },
+                  "imageUrl": {
+                    "type": "string",
+                    "description": "Updated image URL of the post"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Post updated successfully"
+          },
+          "401": {
+            "description": "Unauthorized to update post"
+          }
+        }
+      }
+    },
+    "/api/post/": {
+      "get": {
+        "tags": [
+          "post"
+        ],
+        "security": [
+          {
+            "jwtAuth": []
+          }
+        ],
+        "summary": "Retrieve posts based on user credentials",
+        "responses": {
+          "200": {
+            "description": "Posts retrieved successfully"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "post"
+        ],
+        "security": [
+          {
+            "jwtAuth": []
+          }
+        ],
+        "summary": "Create a new post (Image upload functionality included)",
+        "requestBody": {
+          "description": "New post data",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "caption": {
+                    "type": "string",
+                    "description": "Caption of the post"
+                  },
+                  "imageUrl": {
+                    "type": "string",
+                    "description": "Image URL of the post"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Post created successfully"
+          },
+          "400": {
+            "description": "Error creating post"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "jwtAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}

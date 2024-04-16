@@ -16,8 +16,8 @@ export default class PostModel {
   //     5. Create a Post model with functions for creating a new post, retrieving all posts,
   // retrieving user posts, getting a post by its id, updating a post and
   // deleting a post.
-  static addPost(userId, caption, imageUrl) {
-    const newpost = PostModel(userId, caption, imageUrl);
+  static addPost(userId,caption, imageUrl) {
+    const newpost = new PostModel(userId, caption, imageUrl);
     posts.push(newpost);
     return newpost;
   }
@@ -32,7 +32,7 @@ export default class PostModel {
     return { success: false, message: "No post was found with the Id" };
   }
   static getUserPost(userId) {
-    const userpost = posts.find((u = u.userId == userId));
+    const userpost = posts.find((u) => u.userId == userId);
     if (userpost) {
       return userpost;
     }
@@ -59,4 +59,4 @@ export default class PostModel {
   }
 }
 
-const posts = [new PostModel(1,"this is aws","http link")];
+const posts = [new PostModel(1, "this is aws", "http link")];

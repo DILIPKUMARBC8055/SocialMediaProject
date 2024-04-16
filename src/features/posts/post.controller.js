@@ -8,17 +8,23 @@ export default class PostController {
     res.status(200).send(posts);
   }
   createPost(req, res) {
-    const { caption, imageUrl } = req.body;
-    const post = PostModel.addPost(req.userId, caption, imageUrl);
+    const { caption } = req.body;
+
+    const post = PostModel.addPost(req.userId, caption, req.file.filename);
     res.status(201).send(post);
   }
   updatePost(req, res) {
-    const { postId, caption, imageUrl } = req.body;
-    const post = PostModel.updatePost(req.userId, postId, caption, imageUrl);
+    const { caption, imageUrl } = req.body;
+    const post = PostModel.updatePost(
+      req.userId,
+      req.params.id,
+      caption,
+      imageUrl
+    );
     res.status(200).send(post);
   }
   deletePost(req, res) {
-    const { postId } = req.body;
+    const { postId } = req.params.id;
     const response = PostModel.deletePost(postId);
     if (response.status) {
       return res.status(200).send(response);
@@ -30,7 +36,7 @@ export default class PostController {
     return res.status(200).send(response);
   }
   getPostById(req, res) {
-    const { postId } = req.body;
+    const { postId } = req.params.id;
     const response = PostModel.getPostById(postId);
     if (response.status) {
       return res.send(200).send(response);

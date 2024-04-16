@@ -1,11 +1,11 @@
 import multer from "multer";
-import path from "path";
+import path from 'path';
 const storage = multer.diskStorage({
-  diskStorage: (req, file, cb) => {
-    cb(null, path.join(path.resolve(), "src", "public", "uploads"));
+  destination: (req,res,cb)=>{
+    cb(null,path.join(path.resolve(),"public"));
   },
   filename: (req, file, cb) => {
-    cb(null, new Date().toISOString + "_" + file.originalname);
+    cb(null, Date.now() + "_" + file.originalname);
   },
 });
 const upload = multer({ storage: storage });

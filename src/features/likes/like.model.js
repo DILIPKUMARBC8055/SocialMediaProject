@@ -38,4 +38,4 @@ export default class LikeModel {
     return { success: true, message: "no Likes for this post" };
   }
 }
-const likes = [];
+const likes = [new LikeModel(1, 1)];

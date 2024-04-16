@@ -5,22 +5,23 @@ import CommentModel from "./comment.model.js";
 
 export default class CommentController {
   getAllComments(req, res) {
-    const { postId } = req.body;
+    const { postId } = req.params.id;
     const response = CommentModel.getComments(postId);
     if (response.success) {
       res.status(200).send(response);
     }
   }
   createCommets(req, res) {
-    const { postId, content } = req.body;
-    const response = CommentModel.addComment(req.userId, postId, content);
+    const { content } = req.body;
+    const response = CommentModel.addComment(req.userId, req.params.sid, content);
     if (response.success) {
       res.status(200).send(response);
     }
   }
   updateCommet(req, res) {
     const { postId, content } = req.body;
-    const response = CommentModel.updateComment(postId, req.userId, content);
+    const commentId=req.body.id;
+    const response = CommentModel.updateComment(commentId,postId, req.userId, content);
     if (response.success) {
       res.status(200).send(response);
     } else {
@@ -28,7 +29,7 @@ export default class CommentController {
     }
   }
   deleteComment(req, res) {
-    const { commentId } = req.body;
+    const { commentId } = req.params.id;
     const response = CommentModel.deleteComment(commentId);
     if (response.success) {
       res.status(200).send(response);

@@ -1,5 +1,6 @@
 import CustomError from "../features/error-handler/customError.js";
 const customError = (err, req, res, next) => {
+  console.log(err);
   if (err instanceof CustomError) {
     return res.send(err.code).send(err.message);
   }

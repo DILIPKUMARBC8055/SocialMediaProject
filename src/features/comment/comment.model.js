@@ -29,7 +29,7 @@ export default class CommentModel {
       return { success: true, message: "The post has no comment" };
     }
   }
-  static updateComment(postId, userId, content) {
+  static updateComment(commentId, postId, userId, content) {
     const index = comments.findIndex(
       (u) => u.postId == postId && u.userId == userId
     );
@@ -49,4 +49,4 @@ export default class CommentModel {
   }
 }
 
-const comments = [];
+const comments = [new CommentModel(1,1,"wow...!")];
